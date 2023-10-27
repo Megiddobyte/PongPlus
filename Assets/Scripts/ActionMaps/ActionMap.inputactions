@@ -1,0 +1,56 @@
+{
+    "name": "ActionMap",
+    "maps": [
+        {
+            "name": "Paddle",
+            "id": "c6a56aed-0fa6-4787-b26a-34164f4f240e",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Button",
+                    "id": "7953b534-ac18-4715-b9fe-bc0636eebbdf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "UpDown",
+                    "id": "9b7f829f-8c98-4c82-9e3d-c55c9a2a671e",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "positive",
+                    "id": "bf9216cc-d73a-4aab-8f43-d614e97adce0",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "negative",
+                    "id": "f2956c7a-8359-42f7-901a-38a75c8b023d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
