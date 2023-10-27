@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Collider2D))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField, Range(0, 20)] private int _paddleSpeed;
+    [SerializeField, Range(1, 20)] private int _paddleSpeed;
 
     private Rigidbody2D _rb;
     void Awake()
