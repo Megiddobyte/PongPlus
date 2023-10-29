@@ -15,22 +15,17 @@ public class Puck : MonoBehaviour
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-    }
-
-    void OnRoundStart()
-    {
-        
+        _rb.velocity = new Vector2(-1, -1) * _puckSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
-        _rb.velocity = Vector2.Reflect(_rb.velocity, col.contacts[0].normal);
-        _bounce.Raise();
-        
+        _rb.velocity = Vector2.Reflect(_rb.velocity, col.contacts[0].normal).normalized * _puckSpeed;
+        _bounce.Raise(this,  null);
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        _score.Raise();
+        Destroy(gameObject);
     }
 }

@@ -25,6 +25,4 @@ public class GameEventListener : MonoBehaviour
     {
         Response.Invoke(sender, data);
     }
-    
-    
 }

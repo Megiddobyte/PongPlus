@@ -5,8 +5,9 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public AudioManager Instance;
-    
-    [SerializeField] private GameEventListener _scoreSFX;
+
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip _bounceSFX, _scoreSFX;
     void Awake()
     {
         if (Instance != null)
@@ -14,9 +15,18 @@ public class AudioManager : MonoBehaviour
             Destroy(this);
         }
         Instance = this;
+        DontDestroyOnLoad(this);
+        
+        _audioSource = GetComponent<AudioSource>();
     }
-    
-    
-    
-    
+
+    public void BounceSFX()
+    {
+        _audioSource.PlayOneShot(_bounceSFX);
+    }
+
+    public void ScoreSFX()
+    {
+        _audioSource.PlayOneShot(_scoreSFX);
+    }
 }
