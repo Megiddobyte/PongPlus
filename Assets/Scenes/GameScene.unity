@@ -418,14 +418,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19711357692ed0946a76878bd7882b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameEvent: {fileID: 11400000, guid: 910903bffddc1fb43989a1b30bcdfe42, type: 2}
+  GameEvent: {fileID: 11400000, guid: 3f916ceadcfbb07469229ba5a98d2228, type: 2}
   Response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 70446673}
         m_TargetAssemblyTypeName: ScoreKeeper, Assembly-CSharp
         m_MethodName: UpdateScore
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -433,7 +433,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &70446673
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,7 +446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9712dabdc757c0048b1aa626ead062ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _side: 1
 --- !u!1 &242818954
 GameObject:
   m_ObjectHideFlags: 0
@@ -752,7 +751,7 @@ MonoBehaviour:
       - m_Target: {fileID: 605807840}
         m_TargetAssemblyTypeName: ScoreKeeper, Assembly-CSharp
         m_MethodName: UpdateScore
-        m_Mode: 0
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -760,7 +759,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 2
+        m_CallState: 1
 --- !u!114 &605807840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -773,7 +772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9712dabdc757c0048b1aa626ead062ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _side: 0
 --- !u!1 &756569043
 GameObject:
   m_ObjectHideFlags: 0
@@ -1168,7 +1166,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1021746469
 GameObject:
@@ -1551,7 +1549,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1242771257
 BoxCollider2D:
@@ -2266,7 +2264,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1611691455}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -40, y: 0, z: 0}
+  m_LocalPosition: {x: -45, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 50, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2580,7 +2578,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1759040832
 BoxCollider2D:
@@ -2641,7 +2639,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _puckSpeed: 6
   _bounce: {fileID: 11400000, guid: 1041ca10a96e8b34cb915eb5e9d22914, type: 2}
-  _score: {fileID: 11400000, guid: 910903bffddc1fb43989a1b30bcdfe42, type: 2}
 --- !u!50 &1759040834
 Rigidbody2D:
   serializedVersion: 4
@@ -3260,7 +3257,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &2108911989
 BoxCollider2D:
@@ -3418,7 +3415,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2115118928}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 0, z: 0}
+  m_LocalPosition: {x: 45, y: 0, z: 0}
   m_LocalScale: {x: 4, y: 50, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3437,7 +3434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84391ea42e15aa9499e20e6c06d0145d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: {fileID: 11400000, guid: 910903bffddc1fb43989a1b30bcdfe42, type: 2}
+  _score: {fileID: 11400000, guid: 3f916ceadcfbb07469229ba5a98d2228, type: 2}
 --- !u!1 &2134588393
 GameObject:
   m_ObjectHideFlags: 0

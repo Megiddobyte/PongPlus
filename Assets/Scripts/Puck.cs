@@ -11,7 +11,6 @@ public class Puck : MonoBehaviour
 
     [SerializeField, Range(1, 20)] private int _puckSpeed;
     [SerializeField] private GameEvent _bounce;
-    [SerializeField] private GameEvent _score;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -20,6 +19,7 @@ public class Puck : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        
         _rb.velocity = Vector2.Reflect(_rb.velocity, col.contacts[0].normal).normalized * _puckSpeed;
         _bounce.Raise(this,  null);
     }

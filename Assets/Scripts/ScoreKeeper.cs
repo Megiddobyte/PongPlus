@@ -8,7 +8,6 @@ public class ScoreKeeper : MonoBehaviour
 {
     private TMP_Text _scoreText;
     private int _score;
-    [SerializeField] private ScoreFieldComponent.ScoreSide _side;
     
     private void Awake()
     {
@@ -17,6 +16,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public void UpdateScore()
     {
+        _score++;
         _scoreText.text = _score.ToString();
     }
 }
