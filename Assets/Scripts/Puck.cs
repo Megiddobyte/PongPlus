@@ -7,20 +7,27 @@ using UnityEngine;
 public class Puck : MonoBehaviour
 {
     private Rigidbody2D _rb;
-    private BoxCollider2D _bc;
+    private CircleCollider2D _cc;
 
     [SerializeField, Range(1, 20)] private int _puckSpeed;
     [SerializeField] private GameEvent _bounce;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
-        _rb.velocity = new Vector2(-1, -1) * _puckSpeed;
+        _rb.velocity = new Vector2(-3, -1).normalized * _puckSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D col)
     {
+        float _maxAngle = 15; //reflection based on midpoint of paddle
+        Vector2 _normal = col.contacts[0].normal;
+        if(Vector2.Angle(_rb.velocity, -_normal) > _maxAngle)
+        {
+            
+        }
         
-        _rb.velocity = Vector2.Reflect(_rb.velocity, col.contacts[0].normal).normalized * _puckSpeed;
+        
+        //_rb.velocity = Vector2.Reflect(_rb.velocity, col.contacts[0].normal).normalized * _puckSpeed;
         _bounce.Raise(this,  null);
     }
 
