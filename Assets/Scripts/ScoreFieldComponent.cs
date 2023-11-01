@@ -6,12 +6,6 @@ using UnityEngine;
 public class ScoreFieldComponent : MonoBehaviour
 {
     [SerializeField] private GameEvent _score;
-    private BoxCollider2D _bc;
-    void Awake()
-    {
-        _bc = GetComponent<BoxCollider2D>();
-    }
-
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (!other.gameObject.GetComponent<Puck>()) return;

@@ -25,8 +25,5 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = Vector2.up * _paddleSpeed * obj.ReadValue<float>();
     }
     
-    private void OnPaddleStop(InputAction.CallbackContext obj)
-    {
-        _rb.velocity = Vector2.zero;
-    }
+    private void OnPaddleStop(InputAction.CallbackContext obj) => _rb.velocity = Vector2.zero;
 }
