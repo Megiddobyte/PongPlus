@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioManager Instance;
+    public static AudioManager Instance;
 
     private AudioSource _audioSource;
     [SerializeField] private AudioClip _bounceSFX, _scoreSFX;

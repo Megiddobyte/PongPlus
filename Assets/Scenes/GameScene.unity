@@ -1400,6 +1400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1101254365}
   - component: {fileID: 1101254366}
+  - component: {fileID: 1101254367}
   m_Layer: 0
   m_Name: Floor
   m_TagString: Untagged
@@ -1467,6 +1468,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1101254367
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1101254364}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1124030125
 GameObject:
   m_ObjectHideFlags: 0
@@ -1684,7 +1712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bd352d736b00d418dc366b89e790e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paddleSpeed: 19
+  _paddleSpeed: 27
 --- !u!50 &1242771259
 Rigidbody2D:
   serializedVersion: 4
@@ -1695,9 +1723,9 @@ Rigidbody2D:
   m_GameObject: {fileID: 1242771254}
   m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
-  m_Mass: 4
+  m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0
   m_GravityScale: 0
@@ -2435,7 +2463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84391ea42e15aa9499e20e6c06d0145d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: {fileID: 11400000, guid: 910903bffddc1fb43989a1b30bcdfe42, type: 2}
+  _score: {fileID: 11400000, guid: 3f916ceadcfbb07469229ba5a98d2228, type: 2}
 --- !u!1 &1698824398
 GameObject:
   m_ObjectHideFlags: 0
@@ -2728,7 +2756,7 @@ Transform:
   m_GameObject: {fileID: 1759040829}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 23, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -2747,7 +2775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _puckSpeed: 13
-  _maxAngle: 360
+  _extremeAngleSpeedScalar: 1.5
+  _initialVelocity: {x: -1, y: -1}
+  _minVelocity: {x: 10, y: 10}
+  _maxVelocity: {x: 14, y: 14}
   _bounce: {fileID: 11400000, guid: 1041ca10a96e8b34cb915eb5e9d22914, type: 2}
 --- !u!50 &1759040834
 Rigidbody2D:
@@ -2757,9 +2788,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1759040829}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -2831,6 +2862,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1787863496}
   - component: {fileID: 1787863497}
+  - component: {fileID: 1787863498}
   m_Layer: 0
   m_Name: Ceiling
   m_TagString: Untagged
@@ -2898,6 +2930,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!50 &1787863498
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1787863495}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!1 &1879850081
 GameObject:
   m_ObjectHideFlags: 0
@@ -3545,7 +3604,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bd352d736b00d418dc366b89e790e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _paddleSpeed: 19
+  _paddleSpeed: 27
 --- !u!50 &2108911991
 Rigidbody2D:
   serializedVersion: 4
@@ -3554,9 +3613,9 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2108911986}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -3663,7 +3722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84391ea42e15aa9499e20e6c06d0145d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _score: {fileID: 11400000, guid: 3f916ceadcfbb07469229ba5a98d2228, type: 2}
+  _score: {fileID: 11400000, guid: 910903bffddc1fb43989a1b30bcdfe42, type: 2}
 --- !u!1 &2134588393
 GameObject:
   m_ObjectHideFlags: 0

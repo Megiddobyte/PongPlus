@@ -35,6 +35,15 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ef7198b2-a789-471a-a701-8f9505212c54"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -70,6 +79,17 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b995e7ee-0edf-4ad9-8044-2611af925e83"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -79,6 +99,7 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
         // Paddle
         m_Paddle = asset.FindActionMap("Paddle", throwIfNotFound: true);
         m_Paddle_Move = m_Paddle.FindAction("Move", throwIfNotFound: true);
+        m_Paddle_Pause = m_Paddle.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,11 +162,13 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Paddle;
     private List<IPaddleActions> m_PaddleActionsCallbackInterfaces = new List<IPaddleActions>();
     private readonly InputAction m_Paddle_Move;
+    private readonly InputAction m_Paddle_Pause;
     public struct PaddleActions
     {
         private @ActionMap m_Wrapper;
         public PaddleActions(@ActionMap wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Paddle_Move;
+        public InputAction @Pause => m_Wrapper.m_Paddle_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Paddle; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -158,6 +181,9 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IPaddleActions instance)
@@ -165,6 +191,9 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IPaddleActions instance)
@@ -185,5 +214,6 @@ public partial class @ActionMap: IInputActionCollection2, IDisposable
     public interface IPaddleActions
     {
         void OnMove(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }
