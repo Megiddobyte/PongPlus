@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Resources;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -10,22 +12,23 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _pausePrefab;
     [SerializeField, Range(0, 5)] private float _timeBetweenRounds;
-    
+
     public static GameManager Instance;
     private GameObject _puck;
     
     void Awake()
     {
-        if (Instance != null)
+        if(Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
         
         //resolve dependencies via instantiation
 
         //_pausePrefab = Instantiate();
+        SceneManager.sceneLoaded += OnGameSceneLoaded;
 
     }
 
@@ -41,6 +44,14 @@ public class GameManager : MonoBehaviour
         RespawnPuck();
     }
 
+    void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (scene.buildIndex != (int) Level.Game) return;
+        
+        Instance.StartCoroutine(SimpleSleep(_timeBetweenRounds));
+        Instance.RespawnPuck();
+    }
+    
     IEnumerator SimpleSleep(float timeToSleep)
     {
         yield return new WaitForSeconds(timeToSleep);
@@ -57,9 +68,10 @@ public class GameManager : MonoBehaviour
     public void LoadGameAgainstAI()
     {
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
+        SceneManager.UnloadSceneAsync((int) Level.MainMenu);
     }
 
-    public void LoadGameSplitscreen() //rename coop
+    public void LoadGameCoop() //rename coop
     {
         
     }
@@ -68,4 +80,5 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
 }

@@ -7,8 +7,7 @@ using UnityEngine;
 public class ScoreKeeper : MonoBehaviour
 {
     private TMP_Text _scoreText;
-    private int _score;
-    
+    public int Score { get; private set; }
     private void Awake()
     {
         _scoreText = GetComponent<TMP_Text>();
@@ -16,7 +15,7 @@ public class ScoreKeeper : MonoBehaviour
 
     public void UpdateScore()
     {
-        _score++;
-        _scoreText.text = _score.ToString();
+        Score++;
+        _scoreText.text = Score.ToString();
     }
 }

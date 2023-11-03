@@ -10,12 +10,12 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private AudioClip _bounceSFX, _scoreSFX;
     void Awake()
     {
-        if (Instance != null)
+        if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
         }
         Instance = this;
-        DontDestroyOnLoad(this);
+        DontDestroyOnLoad(gameObject);
         
         _audioSource = GetComponent<AudioSource>();
     }
