@@ -3,8 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEditor;
-using UnityEditor.VersionControl;
-using UnityEngine;
+using UnityEngine;  
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Puck : MonoBehaviour
@@ -49,7 +48,14 @@ public class Puck : MonoBehaviour
         }
         else //if contactPoint.y is in the center 5th
         {
-            _rb.velocity = new Vector2(-_rb.velocity.x, 0).normalized * _puckSpeed * _movingScalar;
+            if (col.rigidbody.velocity.y != 0) //only dead center reflection if paddle isn't moving
+            {
+                _rb.velocity = Vector2.Reflect(_rb.velocity, _normal);
+            }
+            else
+            {
+                _rb.velocity = new Vector2(-_rb.velocity.x, 0).normalized * _puckSpeed * _movingScalar;
+            }
         }
         _bounce.Raise(this,  null);
     }
@@ -86,4 +92,6 @@ public class Puck : MonoBehaviour
             _rb.velocity = new Vector2(-_rb.velocity.x, -_rb.velocity.y);
         }
     }
+    
 }
+

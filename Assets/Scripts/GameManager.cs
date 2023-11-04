@@ -6,6 +6,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
+using Application = UnityEngine.Device.Application;
 using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
@@ -24,20 +25,11 @@ public class GameManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        //resolve dependencies via instantiation
 
-        //_pausePrefab = Instantiate();
-        SceneManager.sceneLoaded += OnGameSceneLoaded;
+        _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
+        SceneManager.sceneLoaded += OnGameSceneLoaded; //static event handler, must unsubscribe before OnDestroy for domain reloading
 
     }
-
-    public void OnPause()
-    {
-        _pausePrefab.SetActive(_pausePrefab.activeSelf);
-        Time.timeScale = _pausePrefab.activeSelf ? 0 : 1;
-    }
-
     public void OnScore()
     {
         StartCoroutine(SimpleSleep(_timeBetweenRounds));
@@ -50,6 +42,8 @@ public class GameManager : MonoBehaviour
         
         Instance.StartCoroutine(SimpleSleep(_timeBetweenRounds));
         Instance.RespawnPuck();
+
+        Cursor.visible = false;
     }
     
     IEnumerator SimpleSleep(float timeToSleep)
@@ -65,10 +59,21 @@ public class GameManager : MonoBehaviour
         //11 points is a win
     }
 
+    public void Resume()
+    {
+        _pausePrefab.SetActive(false);
+        Time.timeScale = 1;
+    }
+    public void OnPause()
+    {
+        _pausePrefab.SetActive(_pausePrefab.activeSelf);
+        Time.timeScale = _pausePrefab.activeSelf ? 0 : 1;
+    }
+
+
     public void LoadGameAgainstAI()
     {
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
-        SceneManager.UnloadSceneAsync((int) Level.MainMenu);
     }
 
     public void LoadGameCoop() //rename coop
@@ -81,4 +86,17 @@ public class GameManager : MonoBehaviour
         
     }
 
+    public void Quit()
+    {
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
+        Application.Quit();
+    }
+
+    private void OnDisable()
+    {
+        Instance = null;
+        SceneManager.sceneLoaded -= OnGameSceneLoaded;
+    }
 }
