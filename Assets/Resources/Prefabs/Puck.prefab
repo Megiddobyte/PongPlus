@@ -99,12 +99,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8de1db2bfb34eb24497cae0b38ff634c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _puckSpeed: 13
+  _puckSpeed: 20
   _extremeAngleSpeedScalar: 1.5
-  _initialVelocity: {x: -1, y: -1}
-  _minVelocity: {x: 10, y: 10}
-  _maxVelocity: {x: 14, y: 14}
+  _maxVelocity: {x: 18, y: 14}
   _bounce: {fileID: 11400000, guid: 1041ca10a96e8b34cb915eb5e9d22914, type: 2}
+  _xAngleOffset: 4
 --- !u!50 &2460768916340696028
 Rigidbody2D:
   serializedVersion: 4
