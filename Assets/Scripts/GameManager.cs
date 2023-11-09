@@ -13,12 +13,13 @@ using Random = UnityEngine.Random;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject _pausePrefab;
-    private GameObject _pauseObject;
-    private readonly float _timeBetweenRounds = 2; //fix
+    [SerializeField] private GameObject _pauseObject;
+    private readonly float _timeBetweenRounds = 2;
 
     public static GameManager Instance;
     private GameObject _puck;
     [SerializeField] private GameEvent _win;
+    private bool _canPause = true;
     
     void Awake()
     {
@@ -31,30 +32,39 @@ public class GameManager : MonoBehaviour
         _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
         
         SceneManager.sceneLoaded += OnGameSceneLoaded; //static event handler, must unsubscribe before OnDestroy for domain reloading
-        _pauseObject = Instantiate(_pausePrefab);
-        _pauseObject.SetActive(false);
+
         
         DontDestroyOnLoad(gameObject);
-        DontDestroyOnLoad(_pauseObject);
     }
-    public void RoundReset()
-    {
-        StartCoroutine(SimpleSleep(_timeBetweenRounds));
-    }
+    
     void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex != (int) Level.Game) return;
 
         StartCoroutine(SimpleSleep(_timeBetweenRounds));
 
-        Cursor.visible = false;
+        //Cursor.visible = false;
     }
-
-    IEnumerator SimpleSleep(float timeToSleep)
+    
+    public IEnumerator RoundReset()
+    {
+        yield return (SimpleSleep(_timeBetweenRounds));
+        RespawnPuck(); 
+    }
+    
+    /// <summary>
+    /// Sleeps for <c>timeToSleep</c> seconds. Optional flag <c>flagToFlipAfterCooldown</c> used for a simple cooldown timer.
+    /// </summary>
+    /// <param name="timeToSleep"></param>
+    /// <param name="flagToFlipAfterCooldown"></param>
+    /// <returns></returns>
+    IEnumerator SimpleSleep(float timeToSleep, bool flagToFlipAfterCooldown = false)
     {
         yield return new WaitForSeconds(timeToSleep);
-        RespawnPuck();
+        flagToFlipAfterCooldown = true;
+        //this is really bad, SimpleSleep breaks single responsibility 
     }
+    
     
     private void RespawnPuck()
     {
@@ -68,11 +78,24 @@ public class GameManager : MonoBehaviour
         _pausePrefab.SetActive(false);
         Time.timeScale = 1;
     }
+    
     public void OnPause()
     {
-        if (SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return; //technically redundant because of action maps
-        _pauseObject.SetActive(_pauseObject.activeSelf);
+        if (!_canPause || SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return;
+        UI_Initialization();
+        _pauseObject.SetActive(!_pauseObject.activeSelf);
         Time.timeScale = _pauseObject.activeSelf ? 0 : 1;
+        float _pauseCooldown = 2f;
+        SimpleSleep(_pauseCooldown, _canPause); //can I not do this because _canPause is passed by value, not reference?
+        
+    }
+
+    private void UI_Initialization()
+    {
+        if (_pauseObject != null) return;
+        _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
+        _pauseObject.SetActive(false);
+        DontDestroyOnLoad(_pauseObject);
     }
 
 
@@ -81,7 +104,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
     }
 
-    public void LoadGameCoop() //rename coop
+    public void LoadGameCoop()
     {
         
     }

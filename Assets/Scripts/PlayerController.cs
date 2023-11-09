@@ -11,19 +11,19 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField, Range(25, 40)] private int _paddleSpeed;
     [SerializeField] private float _minYPos, _maxYPos;
-    
+
+    private ActionMap _inputActions;
     private Rigidbody2D _rb;
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         
-        ActionMap inputActions = new ActionMap();
-        inputActions.Paddle.Move.performed += OnPaddleMove;
-        inputActions.Paddle.Move.canceled += OnPaddleStop;
-
-        inputActions.Paddle.Pause.performed += OnPause;
+        _inputActions = new ActionMap();
+        _inputActions.Paddle.Move.performed += OnPaddleMove;
+        _inputActions.Paddle.Move.canceled += OnPaddleStop;
+        _inputActions.Paddle.Pause.started += OnPause;
         
-        inputActions.Enable();
+        _inputActions.Enable();
     }
 
 
@@ -47,5 +47,14 @@ public class PlayerController : MonoBehaviour
         {
             transform.position = new Vector2(transform.position.x, _minYPos);
         }
+    }
+
+    private void OnDisable()
+    {
+        _inputActions.Paddle.Move.performed -= OnPaddleMove;
+        _inputActions.Paddle.Move.canceled -= OnPaddleStop;
+        _inputActions.Paddle.Pause.started -= OnPause;
+        
+        _inputActions.Disable();
     }
 }
