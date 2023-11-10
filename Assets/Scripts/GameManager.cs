@@ -41,15 +41,17 @@ public class GameManager : MonoBehaviour
     {
         if (scene.buildIndex != (int) Level.Game) return;
 
-        StartCoroutine(SimpleSleep(_timeBetweenRounds));
+        StartCoroutine(RoundReset(_timeBetweenRounds, _canPause));
 
-        //Cursor.visible = false;
+        #if UNITY_STANDALONE
+        Cursor.visible = false;
+        #endif
     }
     
-    public IEnumerator RoundReset()
+    public IEnumerator RoundReset(float time, bool flagToFlip)
     {
-        yield return (SimpleSleep(_timeBetweenRounds));
-        RespawnPuck(); 
+        yield return StartCoroutine(SimpleSleep(_timeBetweenRounds, flagToFlip));
+        RespawnPuck();
     }
     
     /// <summary>
@@ -62,7 +64,6 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(timeToSleep);
         flagToFlipAfterCooldown = true;
-        //this is really bad, SimpleSleep breaks single responsibility 
     }
     
     
@@ -84,6 +85,7 @@ public class GameManager : MonoBehaviour
         if (!_canPause || SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return;
         UI_Initialization();
         _pauseObject.SetActive(!_pauseObject.activeSelf);
+        Cursor.visible = _pauseObject.activeSelf;
         Time.timeScale = _pauseObject.activeSelf ? 0 : 1;
         float _pauseCooldown = 2f;
         SimpleSleep(_pauseCooldown, _canPause); //can I not do this because _canPause is passed by value, not reference?
