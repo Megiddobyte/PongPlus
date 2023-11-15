@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
+using System.Threading;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,11 +16,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _pausePrefab;
     [SerializeField] private GameObject _pauseObject;
     private readonly float _timeBetweenRounds = 2;
+    private bool _timerFlag;
 
     public static GameManager Instance;
     private GameObject _puck;
     [SerializeField] private GameEvent _win;
     private bool _canPause = true;
+    private bool _isDone;
+
+    public float ElapsedTime { get; set; }
+    public bool StartTimer { get; set; }
     
     void Awake()
     {
@@ -28,44 +34,30 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
         Instance = this;
-
+        
+        #region UI INIT
         _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
-        
-        SceneManager.sceneLoaded += OnGameSceneLoaded; //static event handler, must unsubscribe before OnDestroy for domain reloading
-
-        
+        _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
+        _pauseObject.SetActive(false);
+        SceneManager.sceneLoaded += OnGameSceneLoaded;
         DontDestroyOnLoad(gameObject);
+        #endregion
     }
     
     void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex != (int) Level.Game) return;
-
-        StartCoroutine(RoundReset(_timeBetweenRounds, _canPause));
-
+        StartStopwatch(_timeBetweenRounds, _timerFlag);
         #if UNITY_STANDALONE
         Cursor.visible = false;
         #endif
     }
     
-    public IEnumerator RoundReset(float time, bool flagToFlip)
+    public void RoundReset()
     {
-        yield return StartCoroutine(SimpleSleep(_timeBetweenRounds, flagToFlip));
+        StartStopwatch(_timeBetweenRounds, _timerFlag);
         RespawnPuck();
     }
-    
-    /// <summary>
-    /// Sleeps for <c>timeToSleep</c> seconds. Optional flag <c>flagToFlipAfterCooldown</c> used for a simple cooldown timer.
-    /// </summary>
-    /// <param name="timeToSleep"></param>
-    /// <param name="flagToFlipAfterCooldown"></param>
-    /// <returns></returns>
-    IEnumerator SimpleSleep(float timeToSleep, bool flagToFlipAfterCooldown = false)
-    {
-        yield return new WaitForSeconds(timeToSleep);
-        flagToFlipAfterCooldown = true;
-    }
-    
     
     private void RespawnPuck()
     {
@@ -76,26 +68,27 @@ public class GameManager : MonoBehaviour
 
     public void Resume()
     {
-        _pausePrefab.SetActive(false);
+        _pauseObject.SetActive(false);
         Time.timeScale = 1;
     }
     
     public void OnPause()
     {
         if (!_canPause || SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return;
+        _canPause = false;
+        float _pauseCooldown = 2f;
+        StartStopwatch(_pauseCooldown, _canPause);
+
         UI_Initialization();
+        print("Initializing UI...");
         _pauseObject.SetActive(!_pauseObject.activeSelf);
         Cursor.visible = _pauseObject.activeSelf;
         Time.timeScale = _pauseObject.activeSelf ? 0 : 1;
-        float _pauseCooldown = 2f;
-        SimpleSleep(_pauseCooldown, _canPause); //can I not do this because _canPause is passed by value, not reference?
         
     }
 
-    private void UI_Initialization()
+    private void UI_Initialization() //why do I instantiate it here instead of on Awake?
     {
-        if (_pauseObject != null) return;
-        _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
         _pauseObject.SetActive(false);
         DontDestroyOnLoad(_pauseObject);
     }
@@ -128,5 +121,27 @@ public class GameManager : MonoBehaviour
     {
         Instance = null;
         SceneManager.sceneLoaded -= OnGameSceneLoaded;
+    }
+    
+    private void StartStopwatch(float elapsedTime, bool flagToFlip)
+    { 
+        print("Starting stopwatch...");
+        StartTimer = true; 
+        ElapsedTime = elapsedTime;
+    }
+
+    private void Update() 
+    {
+        if(StartTimer)
+        {
+            ElapsedTime -= Time.deltaTime;
+            if(ElapsedTime <= 0)
+            {
+                _isDone = true;
+                StartTimer = false;
+                print("Stopwatch beeps!");
+            }
+        }
+        
     }
 }
