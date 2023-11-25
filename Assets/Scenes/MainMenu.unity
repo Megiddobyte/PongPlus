@@ -575,6 +575,7 @@ GameObject:
   - component: {fileID: 135104079}
   - component: {fileID: 135104081}
   - component: {fileID: 135104080}
+  - component: {fileID: 135104082}
   m_Layer: 5
   m_Name: TitleAddendum
   m_TagString: Untagged
@@ -622,7 +623,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Plus
+  m_text: '<shake><rainb>Plus</rainb></shake>
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e853f4d6cf517614088642bab7618da2, type: 2}
   m_sharedMaterial: {fileID: 8578108650166843451, guid: e853f4d6cf517614088642bab7618da2, type: 2}
@@ -699,6 +702,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 135104078}
   m_CullTransparentMesh: 1
+--- !u!114 &135104082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135104078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 0
+  animationLoop: 0
+  timeScale: 0
+  _text: '<shake><rainb>Plus</rainb></shake>
+
+'
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: b89bab75163d9a147b1fa685fab1ce18, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 31647d84ae4380b4fb770599ce2dfbe7, type: 2}
+  databaseActions: {fileID: 11400000, guid: 59472133e8ff60f4bb058ea426db1976, type: 2}
+  defaultAppearancesTags:
+  - rot
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
 --- !u!1 &488300532
 GameObject:
   m_ObjectHideFlags: 0
@@ -2760,6 +2794,8 @@ GameObject:
   - component: {fileID: 2070166615}
   - component: {fileID: 2070166617}
   - component: {fileID: 2070166616}
+  - component: {fileID: 2070166619}
+  - component: {fileID: 2070166618}
   m_Layer: 5
   m_Name: PlayText
   m_TagString: Untagged
@@ -2884,6 +2920,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2070166614}
   m_CullTransparentMesh: 1
+--- !u!114 &2070166618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070166614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57a6945b90dcd0c4b81619c0d8b5c283, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useTypeWriter: 1
+  startTypewriterMode: 3
+  hideAppearancesOnSkip: 0
+  triggerEventsOnSkip: 0
+  resetTypingSpeedAtStartup: 1
+  disappearanceOrientation: 0
+  onTextShowed:
+    m_PersistentCalls:
+      m_Calls: []
+  onTypewriterStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onTextDisappeared:
+    m_PersistentCalls:
+      m_Calls: []
+  onCharacterVisible:
+    m_PersistentCalls:
+      m_Calls: []
+  onMessage:
+    m_PersistentCalls:
+      m_Calls: []
+  waitForNormalChars: 0.03
+  waitLong: 0.6
+  waitMiddle: 0.2
+  avoidMultiplePunctuactionWait: 0
+  waitForNewLines: 1
+  waitForLastCharacter: 1
+  useTypewriterWaitForDisappearances: 1
+  disappearanceWaitTime: 0.015
+  disappearanceSpeedMultiplier: 1
+--- !u!114 &2070166619
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070166614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ace8ced0e81c847968cdca0aeda757, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typewriterStartsAutomatically: 1
+  animationLoop: 0
+  timeScale: 0
+  _text: Insert Coin to Start...
+  useDynamicScaling: 1
+  referenceFontSize: 10
+  isResettingTimeOnNewText: 1
+  useDefaultDatabases: 1
+  databaseBehaviors: {fileID: 11400000, guid: b89bab75163d9a147b1fa685fab1ce18, type: 2}
+  databaseAppearances: {fileID: 11400000, guid: 31647d84ae4380b4fb770599ce2dfbe7, type: 2}
+  databaseActions: {fileID: 11400000, guid: 59472133e8ff60f4bb058ea426db1976, type: 2}
+  defaultAppearancesTags:
+  - size
+  defaultDisappearancesTags:
+  - fade
+  defaultBehaviorsTags: []
+  defaultTagsMode: 0
 --- !u!1 &2089661384
 GameObject:
   m_ObjectHideFlags: 0

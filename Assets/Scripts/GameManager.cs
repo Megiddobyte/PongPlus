@@ -8,8 +8,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.SocialPlatforms.Impl;
-using Application = UnityEngine.Device.Application;
-using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -33,35 +31,38 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        Instance = this;
+        else
+        {
+            Instance = this;
         
-        #region UI INIT
-        _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
-        _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
-        _pauseObject.SetActive(false);
-        SceneManager.sceneLoaded += OnGameSceneLoaded;
-        DontDestroyOnLoad(gameObject);
-        #endregion
+            #region UI INIT
+            _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
+            _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
+            _pauseObject.SetActive(false);
+            #endregion
+            
+            SceneManager.sceneLoaded += OnGameSceneLoaded;
+            DontDestroyOnLoad(gameObject);
+        }
+        
     }
     
     void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex != (int) Level.Game) return;
-        StartStopwatch(_timeBetweenRounds, _timerFlag);
+        RoundReset();
+        print("respawning puck");
+        
         #if UNITY_STANDALONE
-        Cursor.visible = false;
+       // Cursor.visible = false;
         #endif
     }
     
-    public void RoundReset()
-    {
-        StartStopwatch(_timeBetweenRounds, _timerFlag);
-        RespawnPuck();
-    }
+    public void RoundReset() => UnityTimer.Timer.Register(_timeBetweenRounds, RespawnPuck);
     
     private void RespawnPuck()
     {
-        Vector2 _respawnPosition = new Vector2(0, Random.Range(-23, 24));
+        Vector2 _respawnPosition = new Vector2(0, UnityEngine.Random.Range(-23, 24));
         var _obj = Resources.Load<GameObject>("Prefabs/Puck");
         Instantiate(_obj, _respawnPosition, Quaternion.identity);
     }
@@ -76,8 +77,6 @@ public class GameManager : MonoBehaviour
     {
         if (!_canPause || SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return;
         _canPause = false;
-        float _pauseCooldown = 2f;
-        StartStopwatch(_pauseCooldown, _canPause);
 
         UI_Initialization();
         print("Initializing UI...");
@@ -92,8 +91,7 @@ public class GameManager : MonoBehaviour
         _pauseObject.SetActive(false);
         DontDestroyOnLoad(_pauseObject);
     }
-
-
+    
     public void LoadGameAgainstAI()
     {
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
@@ -121,27 +119,5 @@ public class GameManager : MonoBehaviour
     {
         Instance = null;
         SceneManager.sceneLoaded -= OnGameSceneLoaded;
-    }
-    
-    private void StartStopwatch(float elapsedTime, bool flagToFlip)
-    { 
-        print("Starting stopwatch...");
-        StartTimer = true; 
-        ElapsedTime = elapsedTime;
-    }
-
-    private void Update() 
-    {
-        if(StartTimer)
-        {
-            ElapsedTime -= Time.deltaTime;
-            if(ElapsedTime <= 0)
-            {
-                _isDone = true;
-                StartTimer = false;
-                print("Stopwatch beeps!");
-            }
-        }
-        
     }
 }

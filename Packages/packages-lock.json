@@ -1,5 +1,11 @@
 {
   "dependencies": {
+    "com.akbiggs.unitytimer": {
+      "version": "file:D:/a/UnityTimer-1.1.0",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 1,
@@ -46,7 +52,7 @@
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
-      "depth": 1,
+      "depth": 0,
       "source": "builtin",
       "dependencies": {}
     },
