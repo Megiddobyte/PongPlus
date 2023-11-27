@@ -3433,7 +3433,6 @@ GameObject:
   - component: {fileID: 2108911988}
   - component: {fileID: 2108911987}
   - component: {fileID: 2108911991}
-  - component: {fileID: 2108911992}
   - component: {fileID: 2108911989}
   m_Layer: 0
   m_Name: RightPaddle
@@ -3581,21 +3580,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
---- !u!114 &2108911992
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108911986}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b0bd352d736b00d418dc366b89e790e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _paddleSpeed: 35
-  _minYPos: -23
-  _maxYPos: 23
 --- !u!1 &2115118928
 GameObject:
   m_ObjectHideFlags: 0

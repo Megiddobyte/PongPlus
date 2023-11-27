@@ -32,9 +32,8 @@ public class PlayerController : MonoBehaviour
         _rb.velocity = Vector2.up * _paddleSpeed * obj.ReadValue<float>();
     }
     private void OnPaddleStop(InputAction.CallbackContext obj) => _rb.velocity = Vector2.zero;
-
     
-    private void OnPause(InputAction.CallbackContext obj) => GameManager.Instance.OnPause();
+    private void OnPause(InputAction.CallbackContext obj) => GameManager.Instance.OnPause(); //is it throwing a NRE because the scene's GM is destroyed?
 
     private void FixedUpdate()
     {
@@ -49,7 +48,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         _inputActions.Paddle.Move.performed -= OnPaddleMove;
         _inputActions.Paddle.Move.canceled -= OnPaddleStop;

@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     private bool _timerFlag;
 
     public static GameManager Instance;
+    
     private GameObject _puck;
     [SerializeField] private GameEvent _win;
     private bool _canPause = true;
@@ -27,10 +28,11 @@ public class GameManager : MonoBehaviour
     
     void Awake()
     {
-        if(Instance != null && Instance != this)
+        if(Instance != null && Instance != this) //works for destroying other managers throughout scene loading, but then NREs when calling Instance?
         {
             Destroy(gameObject);
         }
+        
         else
         {
             Instance = this;
@@ -39,12 +41,12 @@ public class GameManager : MonoBehaviour
             _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
             _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
             _pauseObject.SetActive(false);
+            DontDestroyOnLoad(_pauseObject);
             #endregion
             
             SceneManager.sceneLoaded += OnGameSceneLoaded;
             DontDestroyOnLoad(gameObject);
         }
-        
     }
     
     void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -72,26 +74,18 @@ public class GameManager : MonoBehaviour
         _pauseObject.SetActive(false);
         Time.timeScale = 1;
     }
-    
     public void OnPause()
     {
-        if (!_canPause || SceneManager.GetActiveScene().buildIndex != (int)Level.Game) return;
+        if (!_canPause || SceneManager.GetActiveScene().buildIndex == (int)Level.MainMenu) return; //can pause anywhere but mainmenu
         _canPause = false;
 
-        UI_Initialization();
-        print("Initializing UI...");
         _pauseObject.SetActive(!_pauseObject.activeSelf);
-        Cursor.visible = _pauseObject.activeSelf;
+        //Cursor.visible = _pauseObject.activeSelf;
         Time.timeScale = _pauseObject.activeSelf ? 0 : 1;
-        
+        int _pauseDuration = 2;
+        print("Pause cooldown starting...");
+        UnityTimer.Timer.Register(_pauseDuration, () => _canPause = true); //after a cooldown, allow player to pause again
     }
-
-    private void UI_Initialization() //why do I instantiate it here instead of on Awake?
-    {
-        _pauseObject.SetActive(false);
-        DontDestroyOnLoad(_pauseObject);
-    }
-    
     public void LoadGameAgainstAI()
     {
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
@@ -115,7 +109,7 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    private void OnDisable()
+    private void OnApplicationQuit()
     {
         Instance = null;
         SceneManager.sceneLoaded -= OnGameSceneLoaded;
