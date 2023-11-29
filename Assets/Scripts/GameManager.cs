@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        
         else
         {
             Instance = this;
@@ -91,7 +90,7 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);
     }
 
-    public void LoadGameCoop()
+    public void LoadGameLocal()
     {
         
     }
@@ -106,12 +105,18 @@ public class GameManager : MonoBehaviour
         #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
         #endif
+        
+        #if UNITY_STANDALONE
         Application.Quit();
+        #endif
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
-        Instance = null;
-        SceneManager.sceneLoaded -= OnGameSceneLoaded;
+        if (Instance == this) //prevents destroyed managers in other scenes from destroying the static instance
+        {
+            Instance = null;
+            SceneManager.sceneLoaded -= OnGameSceneLoaded;
+        }
     }
 }

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 using Vector2 = UnityEngine.Vector2;
 
 [RequireComponent(typeof(Collider2D))]
@@ -33,7 +34,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnPaddleStop(InputAction.CallbackContext obj) => _rb.velocity = Vector2.zero;
     
-    private void OnPause(InputAction.CallbackContext obj) => GameManager.Instance.OnPause(); //is it throwing a NRE because the scene's GM is destroyed?
+    private void OnPause(InputAction.CallbackContext obj) => GameManager.Instance.OnPause();
 
     private void FixedUpdate()
     {
