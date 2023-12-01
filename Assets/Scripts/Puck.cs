@@ -79,6 +79,15 @@ public class Puck : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (GameManager.Instance.HasWon) //RoundReset() gets called before HasWon is set to true, causing an extra puck to spawn after winning
+        //so this destroys it
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D col)
     {
         Destroy(gameObject);

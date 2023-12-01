@@ -11,21 +11,18 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _pausePrefab;
-    [SerializeField] private GameObject _pauseObject;
+    private GameObject _pausePrefab, _pauseObject;
+    private GameObject _winPrefab, _winObject;
     private readonly float _timeBetweenRounds = 2;
     private bool _timerFlag;
-
+    
     public static GameManager Instance;
     
     private GameObject _puck;
-    [SerializeField] private GameEvent _win;
     private bool _canPause = true;
     private bool _isDone;
 
-    public float ElapsedTime { get; set; }
-    public bool StartTimer { get; set; }
-    
+    public bool HasWon { get; private set; }
     void Awake()
     {
         if(Instance != null && Instance != this) //works for destroying other managers throughout scene loading, but then NREs when calling Instance?
@@ -35,31 +32,39 @@ public class GameManager : MonoBehaviour
         else
         {
             Instance = this;
-        
-            #region UI INIT
-            _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
-            _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
-            _pauseObject.SetActive(false);
-            DontDestroyOnLoad(_pauseObject);
-            #endregion
+            InitializeDependencies();
             
             SceneManager.sceneLoaded += OnGameSceneLoaded;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    void InitializeDependencies()
+    {
+        #region UI INIT
+        _pausePrefab = Resources.Load<GameObject>("Prefabs/PauseCanvas");
+        _pauseObject = Instantiate(_pausePrefab, new Vector2(0, 0), Quaternion.identity, null);
+        _pauseObject.SetActive(false);
+        DontDestroyOnLoad(_pauseObject);
+
+        _winPrefab = Resources.Load<GameObject>("Prefabs/WinCanvas");
+        _winObject = Instantiate(_winPrefab, new Vector2(0, 0), Quaternion.identity, null);
+        _winObject.SetActive(false);
+        DontDestroyOnLoad(_winObject);
+        #endregion
     }
     
     void OnGameSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.buildIndex != (int) Level.Game) return;
         RoundReset();
-        print("respawning puck");
-        
-        #if UNITY_STANDALONE
-       // Cursor.visible = false;
-        #endif
     }
-    
-    public void RoundReset() => UnityTimer.Timer.Register(_timeBetweenRounds, RespawnPuck);
+
+    public void RoundReset()
+    {
+        if (HasWon) return;
+        UnityTimer.Timer.Register(_timeBetweenRounds, RespawnPuck);
+    }
     
     private void RespawnPuck()
     {
@@ -79,12 +84,24 @@ public class GameManager : MonoBehaviour
         _canPause = false;
 
         _pauseObject.SetActive(!_pauseObject.activeSelf);
-        //Cursor.visible = _pauseObject.activeSelf;
         Time.timeScale = _pauseObject.activeSelf ? 0 : 1;
         int _pauseDuration = 2;
-        print("Pause cooldown starting...");
         UnityTimer.Timer.Register(_pauseDuration, () => _canPause = true); //after a cooldown, allow player to pause again
     }
+
+    public void OnWin(ScoreKeeper.PlayerName winningPlayer)
+    {
+        HasWon = true;
+        _winObject.SetActive(true);
+        _winObject.GetComponentInChildren<TMPro.TMP_Text>().text = $"Player {winningPlayer} Wins!";
+    }
+
+    public void Restart()
+    {
+        SceneManager.LoadSceneAsync((int) Level.Game, LoadSceneMode.Single);
+        _winObject.SetActive(false);
+    }
+
     public void LoadGameAgainstAI()
     {
         SceneManager.LoadSceneAsync((int)Level.Game, LoadSceneMode.Single);

@@ -37,8 +37,13 @@ public class AudioManager : MonoBehaviour
         _audioSource.Play();
     }
 
-    private void StopBackgroundTrack(AudioClip source) => _audioSource.Stop();
-
+    private void StopBackgroundTrack() => _audioSource.Stop();
+    
+    public void OnWin()
+    {
+        StopBackgroundTrack();
+        //add winning track to audio source
+    }
 
     public void BounceSFX() => _audioSource.PlayOneShot(_bounceSFX, 0.05f);
     public void ScoreSFX() => _audioSource.PlayOneShot(_scoreSFX);
