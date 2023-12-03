@@ -24,7 +24,12 @@ public class Puck : MonoBehaviour
         _bc = GetComponent<BoxCollider2D>();
 
         float _offset = 8;
-        _rb.velocity = new Vector2(UnityEngine.Random.Range(-3, 3) + _offset, UnityEngine.Random.Range(-2, 2) + _offset).normalized * _puckSpeed;
+        int _sign = 1;
+        if (UnityEngine.Random.Range(-1, 2) == -1) //can't simply assign this to x velocity because 0 is a possible number
+        {
+            _sign = -1;
+        };
+        _rb.velocity = new Vector2(_maxVelocity.x * _sign, UnityEngine.Random.Range(-4, 4) + _offset).normalized * _puckSpeed;
     }
 
 
@@ -33,7 +38,7 @@ public class Puck : MonoBehaviour
         float _contactPointY = col.transform.InverseTransformPoint(col.contacts[0].point).y;
         Vector2 _normal = col.contacts[0].normal;
         float _movingScalar = col.rigidbody.velocity.y > 0 ? 1.5f : 1; //velocity boost if paddle is moving
-        float _directionFlag = col.rigidbody.velocity.y > 0 ? 1 : -1; //velocity direction of ball, used for reflection determination
+        float _directionOfPaddle = col.rigidbody.velocity.y > 0 ? 1 : -1; //used for reflection determination
         
         if (!col.gameObject.GetComponent<PlayerController>())
         {
@@ -42,13 +47,13 @@ public class Puck : MonoBehaviour
         }
         else if (_contactPointY >= 0.4 || _contactPointY <= -0.4) //if contactPointY is in outermost 5ths
         {
-            _rb.velocity = AngleSolver(_directionFlag, _normal, _movingScalar) * _extremeAngleSpeedScalar;
+            _rb.velocity = AngleSolver(_directionOfPaddle, _normal, _movingScalar) * _extremeAngleSpeedScalar;
             print("hit outer part of paddle");
            
         }
         else if (_contactPointY >= 0.1 || _contactPointY <= -0.1) //if contactPoint.y is in inner 3rds
         {
-            _rb.velocity = AngleSolver(_directionFlag, _normal, _movingScalar);
+            _rb.velocity = AngleSolver(_directionOfPaddle, _normal, _movingScalar);
             print("hit middle of paddle");
         }
         else //if contactPoint.y is in the center 5th
@@ -73,21 +78,18 @@ public class Puck : MonoBehaviour
         {
             _rb.velocity = new Vector2(_maxVelocity.x, _rb.velocity.y);
         }
+
         if (_rb.velocity.y > _maxVelocity.y)
         {
             _rb.velocity = new Vector2(_rb.velocity.x, _maxVelocity.y);
         }
-    }
 
-    private void Update()
-    {
-        if (GameManager.Instance.HasWon) //RoundReset() gets called before HasWon is set to true, causing an extra puck to spawn after winning
-        //so this destroys it
+        if (GameManager.Instance.HasWon)
         {
             Destroy(gameObject);
-        }
+        } //RoundReset() gets called before HasWon is set to true, causing an extra puck to spawn after winning
+        //so this destroys it
     }
-
     private void OnTriggerEnter2D(Collider2D col)
     {
         Destroy(gameObject);
@@ -95,13 +97,9 @@ public class Puck : MonoBehaviour
 
     private Vector2 AngleSolver(float directionFlag, Vector2 normal, float movingScalar) //if puck hits outer part of paddle, it should move in the direction the paddle is moving
     {
-        float _directionFlag = directionFlag;
-        Vector2 _normal = normal;
-        float _movingScalar = movingScalar;
-        
-        if (_rb.velocity.y > 0 && _directionFlag > 0 || _rb.velocity.y < 0 && _directionFlag < 0) //if both paddle and ball move in same direction
+        if (_rb.velocity.y > 0 && directionFlag > 0 || _rb.velocity.y < 0 && directionFlag < 0) //if both paddle and ball move in same direction
         {
-            Vector2 _result = Vector2.Reflect(_rb.velocity + new Vector2(_xAngleOffset, 0), _normal) * _movingScalar;
+            Vector2 _result = Vector2.Reflect(_rb.velocity + new Vector2(_xAngleOffset, 0), normal) * movingScalar;
             return _result;
         }
         else

@@ -446,7 +446,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9712dabdc757c0048b1aa626ead062ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 1
   _win: {fileID: 11400000, guid: 0e5f7a58e8684e140b5db8c47345631a, type: 2}
 --- !u!1 &236075834
 GameObject:
@@ -805,7 +804,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9712dabdc757c0048b1aa626ead062ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: 0
   _win: {fileID: 11400000, guid: 0e5f7a58e8684e140b5db8c47345631a, type: 2}
 --- !u!1 &756569043
 GameObject:
@@ -1797,7 +1795,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.4469204, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1808,7 +1806,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.10615921, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &1242771258
 MonoBehaviour:
@@ -2399,9 +2397,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7be667b76bea8634e8addcafd7d237a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pausePrefab: {fileID: 0}
-  _pauseObject: {fileID: 0}
-  _win: {fileID: 11400000, guid: 0e5f7a58e8684e140b5db8c47345631a, type: 2}
 --- !u!4 &1476453553
 Transform:
   m_ObjectHideFlags: 0
@@ -2980,9 +2975,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _bounceSFX: {fileID: 8300000, guid: de2287efacfbb834499f191899ec988d, type: 3}
-  _scoreSFX: {fileID: 0}
-  _coinSFX: {fileID: 0}
-  _backgroundTrack: {fileID: 0}
+  _scoreSFX: {fileID: 8300000, guid: 7cf238c9b56325b409a54eba419794c7, type: 3}
+  _coinSFX: {fileID: 8300000, guid: de0818ed3de563146b4d9d5af1cc4df5, type: 3}
+  _backgroundTrack: {fileID: 8300000, guid: d1eef076a2b13d648959e48974f56985, type: 3}
 --- !u!4 &1791430126
 Transform:
   m_ObjectHideFlags: 0
@@ -3434,6 +3429,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2108911988}
   - component: {fileID: 2108911987}
+  - component: {fileID: 2108911992}
   - component: {fileID: 2108911991}
   - component: {fileID: 2108911989}
   m_Layer: 0
@@ -3542,7 +3538,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.4469204, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -3553,7 +3549,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.10615921, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &2108911991
 Rigidbody2D:
@@ -3582,6 +3578,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 5
+--- !u!114 &2108911992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108911986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de297101e5dc8c24fa21133b1fd7ecaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 15
+  _fastMoveSpeed: 20
+  _minYPos: -23
+  _maxYPos: 23
 --- !u!1 &2115118928
 GameObject:
   m_ObjectHideFlags: 0

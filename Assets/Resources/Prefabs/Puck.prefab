@@ -101,7 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _puckSpeed: 20
   _extremeAngleSpeedScalar: 1.5
-  _maxVelocity: {x: 18, y: 14}
+  _maxVelocity: {x: 25, y: 14}
   _bounce: {fileID: 11400000, guid: 1041ca10a96e8b34cb915eb5e9d22914, type: 2}
   _xAngleOffset: 4
 --- !u!50 &2460768916340696028

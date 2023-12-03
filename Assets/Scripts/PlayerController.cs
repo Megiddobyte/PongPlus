@@ -5,6 +5,7 @@ using System.Numerics;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
+using UnityEngine.SceneManagement;
 using Vector2 = UnityEngine.Vector2;
 
 [RequireComponent(typeof(Collider2D))]
@@ -48,8 +49,9 @@ public class PlayerController : MonoBehaviour
             transform.position = new Vector2(transform.position.x, _minYPos);
         }
     }
+    private void OnDestroy() => DisableController();
 
-    private void OnApplicationQuit()
+    private void DisableController()
     {
         _inputActions.Paddle.Move.performed -= OnPaddleMove;
         _inputActions.Paddle.Move.canceled -= OnPaddleStop;

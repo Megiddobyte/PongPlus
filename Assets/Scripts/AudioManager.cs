@@ -32,9 +32,9 @@ public class AudioManager : MonoBehaviour
 
     private void StartBackgroundTrack(AudioClip source, bool loop)
     {
-        _audioSource.clip = source;
-        _audioSource.loop = loop;
-        _audioSource.Play();
+            _audioSource.clip = source;
+            _audioSource.loop = loop;
+            _audioSource.Play();
     }
 
     private void StopBackgroundTrack() => _audioSource.Stop();

@@ -99,6 +99,7 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadSceneAsync((int) Level.Game, LoadSceneMode.Single);
+        HasWon = false;
         _winObject.SetActive(false);
     }
 

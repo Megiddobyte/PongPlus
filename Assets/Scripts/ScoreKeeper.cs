@@ -35,11 +35,8 @@ public class ScoreKeeper : MonoBehaviour
 
     private bool CheckIfGameWon(int score)
     {
-        if (score >= 2) //11
-        {
-            GameManager.Instance.OnWin(Name);
-            return true;
-        }
-        return false;
+        if (score < 11) return false;
+        GameManager.Instance.OnWin(Name);
+        return true;
     }
 }
