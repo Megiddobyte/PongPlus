@@ -4,7 +4,7 @@
 
  ## <b>Getting Started</b>
 
-Click the latest release 'Pong Clone' underneath ```Releases``` on the side panel of this repository, or click [here](https://github.com/Color-and-Light/pong-clone/releases/tag/1.0.0). From there, download and extract the .zip and run the executable. Feel free to run this on a VM for security reasons. Alternatively, you can clone the repository and import it as a Unity project. This will require an installation of the [Unity game engine.](https://unity.com/)
+Click the latest release underneath ```Releases``` on the side panel of this repository, or click [here](https://github.com/Color-and-Light/PongPlus/releases/tag/1.0.0). From there, download and extract the .zip and run the executable. Feel free to run this on a VM for security reasons. Alternatively, you can clone the repository and import it as a Unity project. This will require an installation of the [Unity game engine.](https://unity.com/)
 
 ---
 
