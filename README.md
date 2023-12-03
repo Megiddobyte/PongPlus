@@ -23,10 +23,10 @@ Player 1 [Left Paddle] can use either the W and S keys on their keyboard, or up 
 + If the ball passes the other player's paddle, they score a point
 + Scoreboard keeps track of each player's score
 + Game ends when one player reaches 11 points
-    
-    
+
 ## <b>Future Improvements</b>
 
-+ Adding ball variations with unique effects
++ Adding menu and control rebinding to support second player
 + Tweaking enemy AI and including difficulty levels for better user experience
++ Unique effects such as speed boosts and reflecting multiple pucks at once
     
