@@ -8,13 +8,14 @@ Click the latest release 'Pong Clone' underneath ```Releases``` on the side pane
 
 ---
 
-![PongAnimation1](https://user-images.githubusercontent.com/91418047/229227719-a1206479-8707-455a-9e34-4e99aa802f52.gif)
+![pong](https://github.com/Megiddobyte/PongPlus/assets/91418047/ecb71544-ef93-4b8b-9f3b-7ad73936f2c4)
+
 
 ---
 
 ## <b>Controls</b>
 
-Player 1 [Left Paddle] uses the W and S keys to move their paddle
+Player 1 [Left Paddle] can use either the W and S keys on their keyboard, or up and down directional buttons on a gamepad (Xbox or Playstation controller)
 
 ## <b>Gameplay</b>
 + A ball will spawn in the center of the screen and randomly move toward a player.
