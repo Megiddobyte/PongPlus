@@ -127,6 +127,8 @@ public class GameManager : MonoBehaviour
         #if UNITY_STANDALONE
         Application.Quit();
         #endif
+        
+        System.Diagnostics.Process.GetCurrentProcess().Kill(); //this is bad, but Application.Quit causes crashes for unknown reasons
     }
 
     private void OnDestroy()
