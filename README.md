@@ -1,6 +1,6 @@
 # Pong-Plus
 
-[Pong](https://en.wikipedia.org/wiki/Pong) is a classic game released by Atari in 1972. A ball or "puck" bounces across the screen between two paddles controlled by opposing players. The goal of the game is to bounce the ball past the opposing player into their score field for a point. First player to 11 points wins. 
+[Pong](https://en.wikipedia.org/wiki/Pong) is a classic game released by Atari in 1972. A ball or "puck" bounces across the screen between two paddles controlled by opposing players. The goal of the game is to bounce the ball past the opposing player into their score field for a point. First player to 11 points wins. PongPlus is an attempt to bring back that classic experience, with some new flavor.
 
  ## <b>Getting Started</b>
 
